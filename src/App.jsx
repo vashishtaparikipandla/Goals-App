@@ -1,48 +1,24 @@
+import React from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import Onboarding from './pages/Onboarding'
+import Processing from './pages/Processing'
+import Dashboard from './pages/Dashboard'
+import GoalDetail from './pages/GoalDetail'
 import './App.css'
 
 function App() {
+  const location = useLocation();
   return (
     <div className="app-container">
-      <div className="dashboard">
-        <header className="header">
-          <button className="add-btn">+</button>
-          <div className="profile-pic">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Kate" alt="Profile" />
-          </div>
-        </header>
-
-        <h1 className="title">My progress</h1>
-
-        <div className="bubbles-container">
-          <div className="bubble family">family</div>
-          <div className="bubble friends">friends</div>
-          <div className="bubble career">career</div>
-          <div className="bubble financial">financial</div>
-          <div className="bubble fun">fun</div>
-          <div className="bubble health">health</div>
-          <div className="bubble personal-growth">personal<br/>growth</div>
-          <div className="bubble relationship">relationship</div>
-        </div>
-
-        <div className="subgoals-grid">
-          <div className="subgoal-card card-blue">
-            <span>2 of 3 subgoals</span>
-            <h4>physically active life</h4>
-          </div>
-          <div className="subgoal-card card-orange">
-            <span>1 of 6 subgoals</span>
-            <h4>buy an apartment in Kiev</h4>
-          </div>
-          <div className="subgoal-card card-dark">
-            <span>10 of 25 subgoals</span>
-            <h4>improve relations with mom</h4>
-          </div>
-          <div className="subgoal-card card-light">
-            <span>8 of 9 subgoals</span>
-            <h4>find a job</h4>
-          </div>
-        </div>
-      </div>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Onboarding />} />
+          <Route path="/processing" element={<Processing />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/goal/:id" element={<GoalDetail />} />
+        </Routes>
+      </AnimatePresence>
     </div>
   )
 }
